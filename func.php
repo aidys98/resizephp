@@ -51,7 +51,7 @@
         }
             
             
-        //$res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
+        
         
         switch($type) {
             case 'jpeg':
