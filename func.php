@@ -19,22 +19,35 @@
         
         $width = $_POST['width'];
         $height = $_POST['height'];
-        $k = $img_width/$width;
+        /*$k = $img_width/$width;
         $k = $img_height/$width;
         
         $new_width = round($img_width/$k);
-        $new_height = round($img_height/$k);
+        $new_height = round($img_height/$k);*/
+			
         
-        $new_img = imagecreatetruecolor($width,$height);
-        if ($img_width>$img_height){
-           $res = imagecopyresized($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
-			/*$res=imagecopyresampled($new_img,$img,0,0,round((max($img_width,$img_height)-min($img_width,$img_height))/2),0,$width,$height,min($img_width,$img_height),min($img_width,$img_height));*/
+        
+        if ($width>$height){
+			$new_width = $width;
+			$new_height = round($img_height*$width/$img_width);
+			$new_img = imagecreatetruecolor($new_width,$new_height);
+			
+           $res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
+			//$res=imagecopyresampled($new_img,$img,0,0,round((max($img_width,$img_height)-min($img_width,$img_height))/2),0,$width,$height,min($img_width,$img_height),min($img_width,$img_height));
         }
-        if ($img_width<$img_height){
-           $res=imagecopyresampled($new_img,$img,0,0,0,0,$width,$height,min($img_width,$img_height),min($img_width,$img_height));
+        if ($width<$height){
+			$new_height = $height;
+			$new_width = round($img_width*$height/$img_height);
+			$new_img = imagecreatetruecolor($new_width,$new_height);
+			$res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
+           //$res=imagecopyresampled($new_img,$img,0,0,0,0,$width,$height,min($img_width,$img_height),min($img_width,$img_height));
         }
-        if ($img_width==$img_height){
-            $res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
+        if ($width==$height){
+			$new_width = $width;
+			$new_height = $height;
+			$new_img = imagecreatetruecolor($new_width,$new_height);
+			$res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
+            //$res = imagecopyresampled($new_img,$img,0,0,0,0,$new_width,$new_height,$img_width,$img_height);
         }
             
             
